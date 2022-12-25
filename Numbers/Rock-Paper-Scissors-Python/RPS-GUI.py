@@ -43,7 +43,7 @@ def main():
     cpOutputText.draw(win)
 
     # game selection
-    selectGameText = Text(Point(5.0, 8.5), 'Lets play Rock, Paper, Scissors! You\'re Player 1!')
+    selectGameText = Text(Point(5.0, 8.0), 'Lets play Rock, Paper, Scissors, you\'re Player 1! \n Click anywhere to start!')
     selectGameText.draw(win)
 
     # draw quit button
@@ -51,34 +51,94 @@ def main():
     quit_button.draw(win)
 
     # win and lose text box
-    wins_text = Text(Point(1.0, 9.25), 'wins')
-    wins_text.draw(win)
-    wins_box = Rectangle(Point(0.5, 8.5), Point(1.5, 9.0))
-    wins_box.draw(win)
+    winsText = Text(Point(1.0, 9.25), 'wins')
+    winsText.draw(win)
+    winsBox = Rectangle(Point(0.5, 8.5), Point(1.5, 9.0))
+    winsBox.draw(win)
 
-    loses_text = Text(Point(2.0, 9.25), 'loses')
-    loses_text.draw(win)
-    loses_box = Rectangle(Point(1.5, 8.5), Point(2.5, 9.0))
-    loses_box.draw(win)
+    losesText = Text(Point(2.0, 9.25), 'loses')
+    losesText.draw(win)
+    losesBox = Rectangle(Point(1.5, 8.5), Point(2.5, 9.0))
+    losesBox.draw(win)
 
     # accumulator for loops wins and loses
     wins = 0
     loses = 0
-    wins_text = Text(Point(1.0, 8.75), wins)
-    wins_text.draw(win)
-    loses_text = Text(Point(2.0, 8.75), loses)
-    loses_text.draw(win)
-
-    numOfGames = 2
+    winsText = Text(Point(1.0, 8.75), wins)
+    winsText.draw(win)
+    losesText = Text(Point(2.0, 8.75), loses)
+    losesText.draw(win)
 
     mousePt = win.getMouse()
+
     while not quit_button.is_clicked(mousePt):
-        objects = [rock, paper, scissors]
-        currentGame = 0
-        while currentGame <= numOfGames:
-            userOutputText.setText('Select an object below')
+        # 0 = rock, 1 = paper, 2 = scissors
+        computerInput = randint(0, 2)  # used to select rock paper scissors randomly for the computer
+        userOutputText.setText('Select an object below')  # tells the player to select rock, paper, or scissors
+        mousePt = win.getMouse()
+
+        # computer equal to rock then checks if the player clicked rock, paper, or scissors
+        # accumulate the loses/wins and change the visible texts on the score board
+        if computerInput == 0:
+            if rock.is_clicked(mousePt):
+                userOutputText.setText('Player 1 chose rock')
+                selectGameText.setText('Tie! Click anywhere to play again or press quit to end the game!')
+            elif paper.is_clicked(mousePt):
+                userOutputText.setText('Player 1 chose paper')
+                selectGameText.setText('Player 1 won! Click anywhere to play again or press quit to end the game!')
+                wins += 1
+                winsText.setText(wins)
+            elif scissors.is_clicked(mousePt):
+                userOutputText.setText('Player 1 chose scissors')
+                selectGameText.setText('NPC won! Click anywhere to play again or press quit to end the game!')
+                loses += 1
+                losesText.setText(loses)
+            cpOutputText.setText('NPC chose rock')
+            win.getMouse()
+            cpOutputText.setText('NPC')
+
+        # computer equal to paper then checks if the player clicked rock, paper, or scissors
+        # accumulate the loses/wins and change the visible texts on the score board
+        elif computerInput == 1:
+            if rock.is_clicked(mousePt):
+                userOutputText.setText('Player 1 chose rock!')
+                selectGameText.setText('NPC won! Click anywhere to play again or press quit to end the game!')
+                loses += 1
+                losesText.setText(loses)
+            elif paper.is_clicked(mousePt):
+                userOutputText.setText('Player 1 chose paper')
+                selectGameText.setText('Tie! Click anywhere to play again or press quit to end the game!')
+            elif scissors.is_clicked(mousePt):
+                userOutputText.setText('Player 1 chose scissors')
+                selectGameText.setText('Player 1 won! Click anywhere to play again or press quit to end the game!')
+                wins += 1
+                winsText.setText(wins)
+            cpOutputText.setText('NPC chose paper')
+            win.getMouse()
+            cpOutputText.setText('NPC')
+
+        # computer equal to paper then checks if the player clicked rock, paper, or scissors
+        # accumulate the loses/wins and change the visible texts on the score board
+        elif computerInput == 2:
+            if rock.is_clicked(mousePt):
+                userOutputText.setText('Player 1 chose rock!')
+                selectGameText.setText('Player 1 won! Click anywhere to play again or press quit to end the game!')
+                wins += 1
+                winsText.setText(wins)
+            elif paper.is_clicked(mousePt):
+                userOutputText.setText('Player 1 chose paper')
+                selectGameText.setText('NPC won! Click anywhere to play again or press quit to end the game!')
+                loses += 1
+                losesText.setText(loses)
+            elif scissors.is_clicked(mousePt):
+                userOutputText.setText('Player 1 chose scissors')
+                selectGameText.setText('Tie! Click anywhere to play again or press quit to end the game!')
+            cpOutputText.setText('NPC chose scissors')
+            win.getMouse()
+            cpOutputText.setText('NPC')
 
     mousePt = win.getMouse()
+    # if the player clicks the quit button, then exit the game
     if quit_button.is_clicked(mousePt):
         win.close()
 
