@@ -3,10 +3,11 @@ from graphics import *
 from random import *
 
 # Rock Paper Scissors GUI
-# About: Outputs a game of Rock Paper Scissors between the user and computer.
+# About: Outputs a game of Rock Paper Scissors between the user and computer. The John Zelle library was implemented.
+# https://mcsp.wartburg.edu/zelle/python/graphics.py
 #
 # Author: Siah Thomas
-# Data: 12/14/2022
+# Date: 12/14/2022
 
 def main():
     win = GraphWin('Rock Paper Scissors Shoe', 1000, 750)
